@@ -1,0 +1,22 @@
+﻿@page "/"
+@inject BlazorAppMonkeyList.Services.IMonkeyService MonkeyService
+@using BlazorAppMonkeyList.Models
+
+<PageTitle>Index</PageTitle>
+
+<h1>Consumindo API - Monkeys List</h1>
+
+@foreach(var monkey in monkeys)
+{
+    <CardDetail Monkey=monkey />
+}
+
+
+@code{
+    private List<Monkey> monkeys = new();
+    protected override async Task OnInitializedAsync()
+    {
+        monkeys = await MonkeyService.FindAll();
+        StateHasChanged();
+    }
+}
